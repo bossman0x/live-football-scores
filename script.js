@@ -1,4 +1,4 @@
-fetch('https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4328')
+fetch('https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4328&s=2025-2026')
   .then(response => response.json())
   .then(data => {
     const matches = data.events;
@@ -6,10 +6,21 @@ fetch('https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4328'
 
     matches.forEach(match => {
       const matchDiv = document.createElement('div');
+      matchDiv.classList.add('match-card');
       matchDiv.innerHTML = `
-        <h3>${match.strEvent}</h3>
-        <p>${match.dateEvent} — ${match.strTime}</p>
-        <p>${match.strVenue}</p>
+        <div class="teams">
+          <div class="team">
+            <img src="${match.strHomeTeamBadge}" alt="${match.strHomeTeam}">
+            <span>${match.strHomeTeam}</span>
+          </div>
+          <span class="vs">vs</span>
+          <div class="team">
+            <img src="${match.strAwayTeamBadge}" alt="${match.strAwayTeam}">
+            <span>${match.strAwayTeam}</span>
+          </div>
+        </div>
+        <p class="match-info">${match.dateEvent} — ${match.strTime}</p>
+        <p class="venue">${match.strVenue}</p>
       `;
       container.appendChild(matchDiv);
     });
